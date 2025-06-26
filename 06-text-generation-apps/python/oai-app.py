@@ -1,21 +1,17 @@
-from openai import AzureOpenAI
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
 # load environment variables from .env file
 load_dotenv()
 
-# configure OpenAI service client
-client = AzureOpenAI(
-    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-    api_key=os.environ["AZURE_OPENAI_API_KEY"],
-    api_version="2023-10-01-preview",
-)
-deployment = os.environ["AZURE_OPENAI_DEPLOYMENT"]
+# configure OpenAI service client 
+client = OpenAI()
+deployment = "gpt-3.5-turbo"
 
 # add your completion code
 prompt = "Complete the following: Once upon a time there was a"
-messages = [{"role": "user", "content": prompt}]
+messages = [{"role": "user", "content": prompt}]  
 # make completion
 completion = client.chat.completions.create(model=deployment, messages=messages)
 
